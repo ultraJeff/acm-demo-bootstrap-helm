@@ -1,0 +1,23 @@
+apiVersion: v1.credentials.openshift.io/v1
+kind: CredentialsRequest
+metadata:
+  name: aws-creds-acm
+  namespace: {{ .Values.cluster.namespace }}
+spec:
+  secretRef:
+    name: aws-creds
+    namespace: {{ .Values.cluster.namespace }}
+  providerSpec:
+    apiVersion: cloudcredential.openshift.io/v1
+    kind: AWSProviderSpec
+    statementEntries:
+    - effect: Allow
+      action:
+      - ec2:*
+      - elasticloadbalancing:*
+      - iam:*
+      - route53:*
+      - s3:*
+      - sts:*
+      resource: "*"
+

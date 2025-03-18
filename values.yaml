@@ -1,0 +1,33 @@
+# AWS Configuration
+aws:
+  region: us-east-1
+  credentials:
+    accessKey: ""
+    secretKey: ""
+  baseDomain: ""
+
+# Cluster Configuration
+cluster:
+  name: single-node-cluster
+  namespace: open-cluster-management
+
+# Network Configuration
+network:
+  clusterNetwork:
+    - cidr: 10.128.0.0/14
+      hostPrefix: 23
+  serviceNetwork:
+    - 172.30.0.0/16
+  machineNetwork:
+    - cidr: 10.0.0.0/16
+
+# Authentication
+auth:
+  pullSecret: ""
+  sshPrivateKey: ""
+  sshPublicKey: ""
+
+# Tags
+tags:
+  owner: ""
+

@@ -1,0 +1,23 @@
+apiVersion: hive.openshift.io/v1
+kind: ClusterDeployment
+metadata:
+  name: {{ .Values.cluster.name }}
+  namespace: {{ .Values.cluster.namespace }}
+spec:
+  baseDomain: {{ .Values.aws.baseDomain }}
+  clusterName: {{ .Values.cluster.name }}
+  platform:
+    aws:
+      credentialsSecretRef:
+        name: aws-creds
+      region: {{ .Values.aws.region }}
+      userTags:
+        owner: {{ .Values.tags.owner }}
+  provisioning:
+    installConfigSecretRef:
+      name: install-config-secret
+    sshPrivateKeySecretRef:
+      name: aws-creds
+  pullSecretRef:
+    name: aws-creds
+

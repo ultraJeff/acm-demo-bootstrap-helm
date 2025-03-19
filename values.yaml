@@ -1,10 +1,17 @@
-# AWS Configuration
+# Global values
+global:
+  guid: ""  # Will be populated from .env
+
+# AWS / S3 Configuration
 aws:
   region: us-east-1
   credentials:
     accessKey: ""
     secretKey: ""
   baseDomain: ""
+  bucket:
+    name: "grafana-{{ .Values.global.guid }}"
+    endpoint: "s3.amazonaws.com"
 
 # Cluster Configuration
 cluster:

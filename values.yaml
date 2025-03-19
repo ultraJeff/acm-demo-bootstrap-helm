@@ -4,7 +4,7 @@ global:
 
 # AWS / S3 Configuration
 aws:
-  region: us-east-1
+  region: "us-west-1"
   credentials:
     accessKey: ""
     secretKey: ""
@@ -12,11 +12,23 @@ aws:
   bucket:
     name: "grafana-{{ .Values.global.guid }}"
     endpoint: "s3.amazonaws.com"
+    region: "us-east-2"
+
+# ACM Configuration
+acm:
+  namespace: open-cluster-management
+
+# Observability Configuration
+observability:
+  namespace: open-cluster-management-observability
 
 # Cluster Configuration
 cluster:
   name: single-node-cluster
-  namespace: open-cluster-management
+  namespace: single-node-cluster
+  image: 
+    #quay.io/openshift-release-dev/ocp-release:4.18.4-multi
+    name: img4.18.4-multi-appsub
 
 # Network Configuration
 network:

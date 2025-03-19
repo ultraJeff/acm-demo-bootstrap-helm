@@ -2,7 +2,7 @@ apiVersion: observability.open-cluster-management.io/v1beta2
 kind: MultiClusterObservability
 metadata:
   name: observability
-  namespace: open-cluster-management-observability
+  namespace: {{ .Values.observability.namespace }}
 spec:
   observabilityAddonSpec: {}
   storageConfig:

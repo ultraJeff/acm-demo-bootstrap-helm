@@ -1,67 +1,67 @@
-apiVersion: hive.openshift.io/v1
-kind: ClusterDeployment
-metadata:
-  name: 'single-node-cluster'
-  namespace: 'single-node-cluster'
-  labels:
-    cloud: 'AWS'
-    region: 'us-east-1'
-    vendor: OpenShift
-    cluster.open-cluster-management.io/clusterset: 'default'
-spec:
-  baseDomain: sandbox1390.opentlc.com
-  clusterName: 'single-node-cluster'
-  controlPlaneConfig:
-    servingCertificates: {}
-  installAttemptsLimit: 1
-  installed: false
-  platform:
-    aws:
-      credentialsSecretRef:
-        name: single-node-cluster-aws-creds
-      region: us-east-1
-  provisioning:
-    installConfigSecretRef:
-      name: single-node-cluster-install-config
-    sshPrivateKeySecretRef:
-      name: single-node-cluster-ssh-private-key
-    imageSetRef:
-       #quay.io/openshift-release-dev/ocp-release:4.18.4-multi
-      name: img4.18.4-multi-appsub
-  pullSecretRef:
-    name: single-node-cluster-pull-secret
+# apiVersion: hive.openshift.io/v1
+# kind: ClusterDeployment
+# metadata:
+#   name: 'single-node-cluster'
+#   namespace: 'single-node-cluster'
+#   labels:
+#     cloud: 'AWS'
+#     region: 'us-east-1'
+#     vendor: OpenShift
+#     cluster.open-cluster-management.io/clusterset: 'default'
+# spec:
+#   baseDomain: sandbox1390.opentlc.com
+#   clusterName: 'single-node-cluster'
+#   controlPlaneConfig:
+#     servingCertificates: {}
+#   installAttemptsLimit: 1
+#   installed: false
+#   platform:
+#     aws:
+#       credentialsSecretRef:
+#         name: single-node-cluster-aws-creds
+#       region: us-east-1
+#   provisioning:
+#     installConfigSecretRef:
+#       name: single-node-cluster-install-config
+#     sshPrivateKeySecretRef:
+#       name: single-node-cluster-ssh-private-key
+#     imageSetRef:
+#        #quay.io/openshift-release-dev/ocp-release:4.18.4-multi
+#       name: img4.18.4-multi-appsub
+#   pullSecretRef:
+#     name: single-node-cluster-pull-secret
 ---
-apiVersion: cluster.open-cluster-management.io/v1
-kind: ManagedCluster
-metadata:
-  labels:
-    cloud: Amazon
-    region: us-east-1
-    name: 'single-node-cluster'
-    vendor: OpenShift
-    cluster.open-cluster-management.io/clusterset: 'default'
-    owner: 'JeffFranklin'
-  name: 'single-node-cluster'
-spec:
-  hubAcceptsClient: true
+# apiVersion: cluster.open-cluster-management.io/v1
+# kind: ManagedCluster
+# metadata:
+#   labels:
+#     cloud: Amazon
+#     region: us-east-1
+#     name: 'single-node-cluster'
+#     vendor: OpenShift
+#     cluster.open-cluster-management.io/clusterset: 'default'
+#     owner: 'JeffFranklin'
+#   name: 'single-node-cluster'
+# spec:
+#   hubAcceptsClient: true
 ---
-apiVersion: hive.openshift.io/v1
-kind: MachinePool
-metadata:
-  name: single-node-cluster-worker
-  namespace: 'single-node-cluster'
-spec:
-  clusterDeploymentRef:
-    name: 'single-node-cluster'
-  name: worker
-  platform:
-    aws:
-      rootVolume:
-        iops: 2000
-        size: 100
-        type: io1
-      type: m5.xlarge
-  replicas: 0
+# apiVersion: hive.openshift.io/v1
+# kind: MachinePool
+# metadata:
+#   name: single-node-cluster-worker
+#   namespace: 'single-node-cluster'
+# spec:
+#   clusterDeploymentRef:
+#     name: 'single-node-cluster'
+#   name: worker
+#   platform:
+#     aws:
+#       rootVolume:
+#         iops: 2000
+#         size: 100
+#         type: io1
+#       type: m5.xlarge
+#   replicas: 0
 ---
 apiVersion: v1
 kind: Secret
@@ -72,24 +72,24 @@ stringData:
   .dockerconfigjson: # injected on create
 type: kubernetes.io/dockerconfigjson
 ---
-apiVersion: v1
-kind: Secret
-metadata:
-  name: single-node-cluster-install-config
-  namespace: 'single-node-cluster'
-type: Opaque
-data:
-  # Base64 encoding of install-config yaml
-  install-config.yaml: YXBpVmVyc2lvbjogdjEKbWV0YWRhdGE6CiAgbmFtZTogJ3NpbmdsZS1ub2RlLWNsdXN0ZXInCmJhc2VEb21haW46IHNhbmRib3gxMzkwLm9wZW50bGMuY29tCmNvbnRyb2xQbGFuZToKICBhcmNoaXRlY3R1cmU6IGFtZDY0CiAgaHlwZXJ0aHJlYWRpbmc6IEVuYWJsZWQKICBuYW1lOiBtYXN0ZXIKICByZXBsaWNhczogMwogIHBsYXRmb3JtOgogICAgYXdzOgogICAgICB6b25lczoKICAgICAgLSB1cy1lYXN0LTFhCiAgICAgIHJvb3RWb2x1bWU6CiAgICAgICAgaW9wczogNDAwMAogICAgICAgIHNpemU6IDEwMAogICAgICAgIHR5cGU6IGlvMQogICAgICB0eXBlOiBtNS54bGFyZ2UKY29tcHV0ZToKLSBoeXBlcnRocmVhZGluZzogRW5hYmxlZAogIGFyY2hpdGVjdHVyZTogYW1kNjQKICBuYW1lOiAnd29ya2VyJwogIHJlcGxpY2FzOiAwCiAgcGxhdGZvcm06CiAgICBhd3M6CiAgICAgIHJvb3RWb2x1bWU6CiAgICAgICAgaW9wczogMjAwMAogICAgICAgIHNpemU6IDEwMAogICAgICAgIHR5cGU6IGlvMQogICAgICB0eXBlOiBtNS54bGFyZ2UKbmV0d29ya2luZzoKICBuZXR3b3JrVHlwZTogT1ZOS3ViZXJuZXRlcwogIGNsdXN0ZXJOZXR3b3JrOgogIC0gY2lkcjogMTAuMTI4LjAuMC8xNAogICAgaG9zdFByZWZpeDogMjMKICBtYWNoaW5lTmV0d29yazoKICAtIGNpZHI6IDEwLjAuMC4wLzE2CiAgc2VydmljZU5ldHdvcms6CiAgLSAxNzIuMzAuMC4wLzE2CnBsYXRmb3JtOgogIGF3czoKICAgIHJlZ2lvbjogdXMtZWFzdC0xCnB1bGxTZWNyZXQ6ICIiICMgc2tpcCwgaGl2ZSB3aWxsIGluamVjdCBiYXNlZCBvbiBpdCdzIHNlY3JldHMKc3NoS2V5OiB8LQogICAgc3NoLXJzYSBBQUFBQjNOemFDMXljMkVBQUFBREFRQUJBQUFDQVFEU0t4L1ZHYXM1RDNucGFoK3ZqUS9xa2N5MGNWTmxZUEpJYkFRdDRTLzRCblJlNWJBdzN6NVJRKzFIUk1jaURwZDhERnJYNXcwcGRkQUhwaElFNGtSaGdIZ1M1djFXc0c1L1lpSFc0Sm1ha2ttMDhEY2VZMndBbXVxRFhpeWVuWFgxNnE2QjY3TEFGQWFQNEo0cGhRRkFCU3hpbnpNbUdNcEd1anFCbU1jY1ZjZ1M4UklOMjI0dko1cS9CVUJhQVB4aWdRazhURTZLVEQySVk1M2hRWjQwV1AvK3JCSi9tQUswWTB4STZqczB4bVpwOEtVZXRCandpaGZhYjE4TlZJNnd0a1FHSXJvMmMrWFEyQ3c3blBCTFdBb0NTUERlRS92a1pCZVVFQmJybGNEb3BrMUh3TW8xT1VzdGlhcXNMWkhOSHZJU053ZDllelBYdldnYkRQeXhvVys2MFVDdXBxS2h3bzVFQ2hRT3Vpa0JDaVhVZTJmSzUySENzN3U1ZFY3OE51TXlZTGZ5aFVITDZsOUhJUk0xdTlwQWFEZUhtNDRYZWo0dEJDM2hxeTI2dnd1YkNlZHV0NjBGSExZbmJBUHN6ZWo5WEtvQTY0OGYvUFZSVTdRVHk3Uy9iU0dnSnE4TlRURnlyRlh5S1EyZ1FaTUZZRVV3K21wWGtBdXZLZkpndG0zY0ovcnY3TkFvcVV6VVl5Wm52TW1mODVkOUpsQ0tudUtFaHhzNkdqcGpVWHJ5TU5PSTdzQ2dPcE5rTUhlNS9iVEVyMUxVY3FjZERJd3RmSEVGdnJoYVR4NkMvRm5ybi9nUVRoZGhJQXp3bXdFYWZmbUM5MEFjRzgwRWZLeTVOVXdGdXYyRDVEOE1tTXNHbGV5WnBnbnFrVTNYd3JlY2Z5YWxNTkkvcHc9PSBqZWZyCg==
+# apiVersion: v1
+# kind: Secret
+# metadata:
+#   name: single-node-cluster-install-config
+#   namespace: 'single-node-cluster'
+# type: Opaque
+# data:
+#   # Base64 encoding of install-config yaml
+#   install-config.yaml: YXBpVmVyc2lvbjogdjEKbWV0YWRhdGE6CiAgbmFtZTogJ3NpbmdsZS1ub2RlLWNsdXN0ZXInCmJhc2VEb21haW46IHNhbmRib3gxMzkwLm9wZW50bGMuY29tCmNvbnRyb2xQbGFuZToKICBhcmNoaXRlY3R1cmU6IGFtZDY0CiAgaHlwZXJ0aHJlYWRpbmc6IEVuYWJsZWQKICBuYW1lOiBtYXN0ZXIKICByZXBsaWNhczogMwogIHBsYXRmb3JtOgogICAgYXdzOgogICAgICB6b25lczoKICAgICAgLSB1cy1lYXN0LTFhCiAgICAgIHJvb3RWb2x1bWU6CiAgICAgICAgaW9wczogNDAwMAogICAgICAgIHNpemU6IDEwMAogICAgICAgIHR5cGU6IGlvMQogICAgICB0eXBlOiBtNS54bGFyZ2UKY29tcHV0ZToKLSBoeXBlcnRocmVhZGluZzogRW5hYmxlZAogIGFyY2hpdGVjdHVyZTogYW1kNjQKICBuYW1lOiAnd29ya2VyJwogIHJlcGxpY2FzOiAwCiAgcGxhdGZvcm06CiAgICBhd3M6CiAgICAgIHJvb3RWb2x1bWU6CiAgICAgICAgaW9wczogMjAwMAogICAgICAgIHNpemU6IDEwMAogICAgICAgIHR5cGU6IGlvMQogICAgICB0eXBlOiBtNS54bGFyZ2UKbmV0d29ya2luZzoKICBuZXR3b3JrVHlwZTogT1ZOS3ViZXJuZXRlcwogIGNsdXN0ZXJOZXR3b3JrOgogIC0gY2lkcjogMTAuMTI4LjAuMC8xNAogICAgaG9zdFByZWZpeDogMjMKICBtYWNoaW5lTmV0d29yazoKICAtIGNpZHI6IDEwLjAuMC4wLzE2CiAgc2VydmljZU5ldHdvcms6CiAgLSAxNzIuMzAuMC4wLzE2CnBsYXRmb3JtOgogIGF3czoKICAgIHJlZ2lvbjogdXMtZWFzdC0xCnB1bGxTZWNyZXQ6ICIiICMgc2tpcCwgaGl2ZSB3aWxsIGluamVjdCBiYXNlZCBvbiBpdCdzIHNlY3JldHMKc3NoS2V5OiB8LQogICAgc3NoLXJzYSBBQUFBQjNOemFDMXljMkVBQUFBREFRQUJBQUFDQVFEU0t4L1ZHYXM1RDNucGFoK3ZqUS9xa2N5MGNWTmxZUEpJYkFRdDRTLzRCblJlNWJBdzN6NVJRKzFIUk1jaURwZDhERnJYNXcwcGRkQUhwaElFNGtSaGdIZ1M1djFXc0c1L1lpSFc0Sm1ha2ttMDhEY2VZMndBbXVxRFhpeWVuWFgxNnE2QjY3TEFGQWFQNEo0cGhRRkFCU3hpbnpNbUdNcEd1anFCbU1jY1ZjZ1M4UklOMjI0dko1cS9CVUJhQVB4aWdRazhURTZLVEQySVk1M2hRWjQwV1AvK3JCSi9tQUswWTB4STZqczB4bVpwOEtVZXRCandpaGZhYjE4TlZJNnd0a1FHSXJvMmMrWFEyQ3c3blBCTFdBb0NTUERlRS92a1pCZVVFQmJybGNEb3BrMUh3TW8xT1VzdGlhcXNMWkhOSHZJU053ZDllelBYdldnYkRQeXhvVys2MFVDdXBxS2h3bzVFQ2hRT3Vpa0JDaVhVZTJmSzUySENzN3U1ZFY3OE51TXlZTGZ5aFVITDZsOUhJUk0xdTlwQWFEZUhtNDRYZWo0dEJDM2hxeTI2dnd1YkNlZHV0NjBGSExZbmJBUHN6ZWo5WEtvQTY0OGYvUFZSVTdRVHk3Uy9iU0dnSnE4TlRURnlyRlh5S1EyZ1FaTUZZRVV3K21wWGtBdXZLZkpndG0zY0ovcnY3TkFvcVV6VVl5Wm52TW1mODVkOUpsQ0tudUtFaHhzNkdqcGpVWHJ5TU5PSTdzQ2dPcE5rTUhlNS9iVEVyMUxVY3FjZERJd3RmSEVGdnJoYVR4NkMvRm5ybi9nUVRoZGhJQXp3bXdFYWZmbUM5MEFjRzgwRWZLeTVOVXdGdXYyRDVEOE1tTXNHbGV5WnBnbnFrVTNYd3JlY2Z5YWxNTkkvcHc9PSBqZWZyCg==
 ---
-apiVersion: v1
-kind: Secret
-metadata:
-  name: single-node-cluster-ssh-private-key
-  namespace: 'single-node-cluster'
-stringData:
-  ssh-privatekey: # injected on create
-type: Opaque
+# apiVersion: v1
+# kind: Secret
+# metadata:
+#   name: single-node-cluster-ssh-private-key
+#   namespace: 'single-node-cluster'
+# stringData:
+#   ssh-privatekey: # injected on create
+# type: Opaque
 ---
 apiVersion: v1
 kind: Secret
@@ -101,22 +101,22 @@ stringData:
   aws_access_key_id: AKIA5Q7CJNHVVVHPTIUG
   aws_secret_access_key: # injected on create
 ---
-apiVersion: agent.open-cluster-management.io/v1
-kind: KlusterletAddonConfig
-metadata:
-  name: 'single-node-cluster'
-  namespace: 'single-node-cluster'
-spec:
-  clusterName: 'single-node-cluster'
-  clusterNamespace: 'single-node-cluster'
-  clusterLabels:
-    cloud: Amazon
-    vendor: OpenShift
-  applicationManager:
-    enabled: true
-  policyController:
-    enabled: true
-  searchCollector:
-    enabled: true
-  certPolicyController:
-    enabled: true
+# apiVersion: agent.open-cluster-management.io/v1
+# kind: KlusterletAddonConfig
+# metadata:
+#   name: 'single-node-cluster'
+#   namespace: 'single-node-cluster'
+# spec:
+#   clusterName: 'single-node-cluster'
+#   clusterNamespace: 'single-node-cluster'
+#   clusterLabels:
+#     cloud: Amazon
+#     vendor: OpenShift
+#   applicationManager:
+#     enabled: true
+#   policyController:
+#     enabled: true
+#   searchCollector:
+#     enabled: true
+#   certPolicyController:
+#     enabled: true

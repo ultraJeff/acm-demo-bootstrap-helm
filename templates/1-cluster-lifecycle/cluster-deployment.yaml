@@ -1,0 +1,31 @@
+apiVersion: hive.openshift.io/v1
+kind: ClusterDeployment
+metadata:
+  name: {{ .Values.cluster.name }}
+  namespace: {{ .Values.cluster.namespace }}
+  labels:
+    cloud: 'AWS'
+    region: {{ .Values.aws.region }}
+    vendor: OpenShift
+    cluster.open-cluster-management.io/clusterset: 'default'
+spec:
+  baseDomain: {{ .Values.aws.baseDomain }}
+  clusterName: {{ .Values.cluster.name }}
+  controlPlaneConfig:
+    servingCertificates: {}
+  installAttemptsLimit: 1
+  installed: false
+  platform:
+    aws:
+      credentialsSecretRef:
+        name: cluster-aws-creds
+      region: {{ .Values.aws.region }}
+  provisioning:
+    installConfigSecretRef:
+      name: {{ .Values.cluster.name }}-install-config
+    sshPrivateKeySecretRef:
+      name: cluster-ssh-private-key
+    imageSetRef:
+      name: {{ .Values.cluster.image.name }}
+  pullSecretRef:
+    name: cluster-pull-secret

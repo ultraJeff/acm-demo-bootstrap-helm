@@ -1,0 +1,45 @@
+apiVersion: v1
+metadata:
+  name: 'single-node-cluster'
+baseDomain: sandbox1390.opentlc.com
+controlPlane:
+  architecture: amd64
+  hyperthreading: Enabled
+  name: master
+  replicas: 3
+  platform:
+    aws:
+      zones:
+      - us-east-1a
+      rootVolume:
+        iops: 4000
+        size: 100
+        type: io1
+      type: m5.xlarge
+compute:
+- hyperthreading: Enabled
+  architecture: amd64
+  name: 'worker'
+  replicas: 0
+  platform:
+    aws:
+      rootVolume:
+        iops: 2000
+        size: 100
+        type: io1
+      type: m5.xlarge
+networking:
+  networkType: OVNKubernetes
+  clusterNetwork:
+  - cidr: 10.128.0.0/14
+    hostPrefix: 23
+  machineNetwork:
+  - cidr: 10.0.0.0/16
+  serviceNetwork:
+  - 172.30.0.0/16
+platform:
+  aws:
+    region: us-east-1
+pullSecret: "" # skip, hive will inject based on it's secrets
+sshKey: |-
+    ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDSKx/VGas5D3npah+vjQ/qkcy0cVNlYPJIbAQt4S/4BnRe5bAw3z5RQ+1HRMciDpd8DFrX5w0pddAHphIE4kRhgHgS5v1WsG5/YiHW4Jmakkm08DceY2wAmuqDXiyenXX16q6B67LAFAaP4J4phQFABSxinzMmGMpGujqBmMccVcgS8RIN224vJ5q/BUBaAPxigQk8TE6KTD2IY53hQZ40WP/+rBJ/mAK0Y0xI6js0xmZp8KUetBjwihfab18NVI6wtkQGIro2c+XQ2Cw7nPBLWAoCSPDeE/vkZBeUEBbrlcDopk1HwMo1OUstiaqsLZHNHvISNwd9ezPXvWgbDPyxoW+60UCupqKhwo5EChQOuikBCiXUe2fK52HCs7u5dV78NuMyYLfyhUHL6l9HIRM1u9pAaDeHm44Xej4tBC3hqy26vwubCedut60FHLYnbAPszej9XKoA648f/PVRU7QTy7S/bSGgJq8NTTFyrFXyKQ2gQZMFYEUw+mpXkAuvKfJgtm3cJ/rv7NAoqUzUYyZnvMmf85d9JlCKnuKEhxs6GjpjUXryMNOI7sCgOpNkMHe5/bTEr1LUcqcdDIwtfHEFvrhaTx6C/Fnrn/gQThdhIAzwmwEaffmC90AcG80EfKy5NUwFuv2D5D8MmMsGleyZpgnqkU3XwrecfyalMNI/pw== jefr

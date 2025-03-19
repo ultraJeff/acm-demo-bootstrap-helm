@@ -1,6 +1,6 @@
 apiVersion: v2
-name: single-node-openshift
-description: A Helm chart for deploying a single-node OpenShift cluster on AWS
+name: acm-demo-bootstrap-helm
+description: A Helm chart for deploying the Red Hat ACM Demo
 type: application
 version: 0.1.0
 appVersion: "4.12.0"

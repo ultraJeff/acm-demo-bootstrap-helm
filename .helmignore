@@ -15,5 +15,7 @@
 .DS_Store
 
 clickops-version
-1-cluster-lifecycle
+# 00-aws-creds
+0-observability
+# 1-cluster-lifecycle
 helm-crds

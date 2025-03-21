@@ -1,11 +1,9 @@
 apiVersion: v1
 kind: Secret
+type: Opaque
 metadata:
   name: cluster-aws-creds
   namespace: {{ .Values.cluster.namespace }}
-type: Opaque
 stringData:
   aws_access_key_id: {{ .Values.aws.credentials.accessKey }}
-  # aws_secret_access_key: {{ .Values.aws.credentials.secretKey }}
-  aws_secret_access_key: # injected on create
-type: Opaque
+  aws_secret_access_key: {{ .Values.aws.credentials.secretKey }}

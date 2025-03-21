@@ -4,6 +4,5 @@ metadata:
   name: cluster-ssh-private-key
   namespace: {{ .Values.cluster.namespace }}
 type: Opaque
-stringData:
-#   ssh-privatekey: {{ .Values.auth.sshPrivateKey }}
-    ssh-privatekey: # injected on create
+data:
+  ssh-privatekey: {{ .Values.auth.sshPrivateKey }}

@@ -22,7 +22,9 @@ spec:
       region: {{ .Values.aws.region }}
   provisioning:
     installConfigSecretRef:
-      name: {{ .Values.cluster.name }}-install-config
+      name: single-node-cluster-install-config
+      # Use below if using a different install config
+      # name: {{ .Values.cluster.name }}-install-config
     sshPrivateKeySecretRef:
       name: cluster-ssh-private-key
     imageSetRef:

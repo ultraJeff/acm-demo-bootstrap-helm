@@ -1,16 +1,16 @@
 # Global values
 global:
-  guid: ""  # Will be populated from .env
+  guid: "" # Will be populated from .env
 
 # AWS / S3 Configuration
 aws:
   region: "us-west-1"
   credentials:
-    accessKey: ""
-    secretKey: ""
-  baseDomain: ""
+    accessKey: "" # Will be populated from .env
+    secretKey: "" # Will be populated from .env
+  baseDomain: "" # Will be populated from .env
   bucket:
-    name: grafana-{{ .global.guid }}
+    name: grafana-{{ .Values.global.guid }}" # Will be populated from .env
     endpoint: "s3.amazonaws.com"
     region: "us-east-2"
 
@@ -24,11 +24,10 @@ observability:
 
 # Cluster Configuration
 cluster:
-  name: single-node-cluster
-  namespace: single-node-cluster
+  name: single-node-cluster # Will be populated from .env
+  namespace: single-node-cluster # Will be populated from .env
   image: 
-    #quay.io/openshift-release-dev/ocp-release:4.18.4-multi
-    name: img4.18.4-multi-appsub
+    name: img4.18.4-multi-appsub #quay.io/openshift-release-dev/ocp-release:4.18.4-multi
 
 # Network Configuration
 network:
@@ -42,11 +41,11 @@ network:
 
 # Authentication
 auth:
-  pullSecret: ""
-  sshPrivateKey: ""
-  sshPublicKey: ""
+  pullSecret: "" # Will be populated from .env
+  sshPrivateKey: "" # Will be populated from .env
+  sshPublicKey: "" # Will be populated from .env
 
 # Tags
 tags:
-  owner: ""
+  owner: "" # Will be populated from .env 
 

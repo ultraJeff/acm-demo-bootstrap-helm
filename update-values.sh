@@ -64,6 +64,9 @@ while IFS='=' read -r line || [ -n "$line" ]; do
         "BUCKET_NAME")
             yq -i ".aws.bucket.name = \"$value\"" values.yaml
             ;;
+        "BUCKET_REGION")
+            yq -i ".aws.bucket.region = \"$value\"" values.yaml
+            ;;
         "AWS_ACCESS_KEY_ID")
             yq -i ".aws.credentials.accessKey = \"$value\"" values.yaml
             ;;

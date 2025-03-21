@@ -13,19 +13,19 @@ else
 fi
 
 # Check if required environment variables are set
-if [ -z "$AWS_ACCESS_KEY_ID" ] || [ -z "$AWS_SECRET_ACCESS_KEY" ] || [ -z "$AWS_REGION" ] || [ -z "$GUID" ]; then
+if [ -z "$AWS_ACCESS_KEY_ID" ] || [ -z "$AWS_SECRET_ACCESS_KEY" ] || [ -z "$BUCKET_REGION" ] || [ -z "$GUID" ]; then
     echo "Error: Required environment variables are not set"
-    echo "Please make sure AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION, and GUID are set in the .env file"
+    echo "Please make sure AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, BUCKET_REGION, and GUID are set in the .env file"
     exit 1
 fi
 
 echo "Using AWS credentials and region from environment variables..."
-echo "AWS Region: $AWS_REGION"
+echo "AWS Region: $BUCKET_REGION"
 
 # Setup aws configure with environment variables
 aws configure set aws_access_key_id "$AWS_ACCESS_KEY_ID"
 aws configure set aws_secret_access_key "$AWS_SECRET_ACCESS_KEY"
-aws configure set region "$AWS_REGION"
+aws configure set region "$BUCKET_REGION"
 aws configure set output "json"
 
 # Create S3 bucket
@@ -33,11 +33,16 @@ BUCKET_NAME="grafana-${GUID}"
 echo "Creating S3 bucket: $BUCKET_NAME"
 aws s3api create-bucket \
     --bucket "$BUCKET_NAME" \
-    --region "$AWS_REGION" \
-    --create-bucket-configuration LocationConstraint="$AWS_REGION" || {
+    --region "$BUCKET_REGION" \
+    --create-bucket-configuration LocationConstraint="$BUCKET_REGION" || {
         echo "Bucket creation failed. It might already exist or name is not available."
     }
 
+# if [ -z "$AWS_ACCESS_KEY_ID" ] || [ -z "$AWS_SECRET_ACCESS_KEY" ] || [ -z "$AWS_REGION" ] || [ -z "$GUID" ]; then
+#     echo "Error: Required environment variables are not set"
+#     echo "Please make sure AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION, and GUID are set in the .env file"
+#     exit 1
+# fi
 # Create EKS cluster
 # CLUSTER_NAME="eks-cluster-${GUID}"
 # echo "Creating EKS cluster: $CLUSTER_NAME (this may take several minutes)..."

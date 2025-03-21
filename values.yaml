@@ -12,7 +12,7 @@ aws:
   bucket:
     name: "" # Will be populated from .env
     endpoint: "s3.amazonaws.com"
-    region: "us-east-2"
+    region: "" # Will be populated from .env
 
 # ACM Configuration
 acm:

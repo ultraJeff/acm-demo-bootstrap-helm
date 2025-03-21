@@ -10,7 +10,7 @@ aws:
     secretKey: ""
   baseDomain: ""
   bucket:
-    name: "grafana-{{ .Values.global.guid }}"
+    name: grafana-{{ .global.guid }}
     endpoint: "s3.amazonaws.com"
     region: "us-east-2"
 

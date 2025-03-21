@@ -27,5 +27,5 @@ CLUSTER_NAMESPACE
 
 1. Run `./update-values.sh` first to set all of the template variables.
 2. Run `./aws-setup.sh` next to create the S3 bucket for Observability and an EKS cluster (comment this out if not needed)
-3. For `1-cluster-lifecycle`, most names are managed through values.yaml file. If you are installing a SNO cluster, then you won't need to change anything, but if you are installing a different type of cluster, you will need to create a new install config secret file similar to `single-node-cluster-install-config.yaml` and reference that name in values.yaml instead.
-4. Run `helm install --dry-run=server . --generate-name --debug > helm-crds/yamls.yaml` to generate the CRDs that you can use to `oc apply` with. (Remove the variables section first TODO: Change this instruction to remove the variables section automatically)
+> NOTE: For `1-cluster-lifecycle`, most names are managed through values.yaml file. If you are installing a SNO cluster, then you won't need to change anything, but if you are installing a different type of cluster, you will need to create a new install config secret file similar to `single-node-cluster-install-config.yaml` and reference that name in values.yaml instead.
+3. Run `helm install --dry-run=server . --generate-name --debug > helm-crds/yamls.yaml` to generate the CRDs that you can use to `oc apply` with. (Remove the variables section first TODO: Change this instruction to remove the variables section automatically)

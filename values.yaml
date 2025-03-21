@@ -10,7 +10,7 @@ aws:
     secretKey: "" # Will be populated from .env
   baseDomain: "" # Will be populated from .env
   bucket:
-    name: grafana-{{ .Values.global.guid }}" # Will be populated from .env
+    name: "" # Will be populated from .env
     endpoint: "s3.amazonaws.com"
     region: "us-east-2"
 

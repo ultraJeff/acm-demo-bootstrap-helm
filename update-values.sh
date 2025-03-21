@@ -61,6 +61,9 @@ while IFS='=' read -r line || [ -n "$line" ]; do
         "GUID")
             yq -i ".global.guid = \"$value\"" values.yaml
             ;;
+        "BUCKET_NAME")
+            yq -i ".aws.bucket.name = \"$value\"" values.yaml
+            ;;
         "AWS_ACCESS_KEY_ID")
             yq -i ".aws.credentials.accessKey = \"$value\"" values.yaml
             ;;

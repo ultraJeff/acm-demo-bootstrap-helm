@@ -83,12 +83,10 @@ while IFS='=' read -r line || [ -n "$line" ]; do
             yq -i ".cluster.namespace = \"$value\"" values.yaml
             ;;
         "PULL_SECRET")
-            # Handle JSON pull secret
-            echo "$value" | yq -i '.auth.pullSecret = load("/dev/stdin")' values.yaml
+            yq -i ".auth.pullSecret = \"$value\"" values.yaml
             ;;
         "SSH_PRIVATE_KEY")
-            # Handle base64 encoded SSH private key
-            echo "$value" | base64 -d | yq -i '.auth.sshPrivateKey = load("/dev/stdin")' values.yaml
+            yq -i ".auth.sshPrivateKey = \"$value\"" values.yaml
             ;;
         "SSH_PUBLIC_KEY")
             yq -i ".auth.sshPublicKey = \"$value\"" values.yaml

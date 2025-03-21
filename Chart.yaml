@@ -1,7 +1,6 @@
 apiVersion: v2
 name: acm-demo-bootstrap-helm
-description: A Helm chart for deploying the Red Hat ACM Demo
+description: A Helm chart for bootstrapping the various capabilities for demoing Red Hat Advanced Cluster Management (ACM)
 type: application
-version: 0.1.0
-appVersion: "4.12.0"
+version: 0.2-o11y
 

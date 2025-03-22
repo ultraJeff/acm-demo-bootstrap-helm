@@ -32,3 +32,9 @@ CLUSTER_NAMESPACE
 3. Run `helm install --dry-run=server . --generate-name --debug > helm-crds/yamls.yaml` to generate the CRDs if you would like to check the output before applying it.
 4. Run `helm upgrade --reuse-values <chart-name> .` to install the CRDs.
 > NOTE: Use the .helmignore file to exclude certain sections of the demo that you don't want to install.
+
+## Application Lifecycle
+
+1. Run `./setup-gitops.sh` to install the GitOps Operator and Instance.
+2. Run `oc apply -f ./templates/2-application-lifecycle/argo-server` to set up the Argo Server.
+3. Run `oc apply -f ./templates/2-application-lifecycle/rocket-chat` to set up the Rocket Chat application.

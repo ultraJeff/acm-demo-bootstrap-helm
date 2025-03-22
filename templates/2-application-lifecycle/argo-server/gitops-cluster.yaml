@@ -1,0 +1,12 @@
+apiVersion: apps.open-cluster-management.io/v1beta1
+kind: GitOpsCluster
+metadata:
+  name: argo-server
+  namespace: openshift-gitops
+spec:
+  argoServer:
+    argoNamespace: openshift-gitops
+  placementRef:
+    name: argo-server-placement
+    kind: Placement
+    apiVersion: cluster.open-cluster-management.io/v1beta1

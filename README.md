@@ -29,4 +29,6 @@ CLUSTER_NAMESPACE
 > NOTE: **Do not commit your updates to `values.yaml`!** Reset it with `git checkout values.yaml` before committing anything to your own fork.
 2. Run `./aws-setup.sh` next to create the S3 bucket for Observability and an EKS cluster (comment this out if not needed)
 > NOTE: For `1-cluster-lifecycle`, most names are managed through values.yaml file. If you are installing a SNO cluster, then you won't need to change anything, but if you are installing a different type of cluster, you will need to create a new install config secret file similar to `single-node-cluster-install-config.yaml` and reference that name in values.yaml instead.
-3. Run `helm install --dry-run=server . --generate-name --debug > helm-crds/yamls.yaml` to generate the CRDs that you can use to `oc apply` with. (Remove the variables section first TODO: Change this instruction to remove the variables section automatically)
+3. Run `helm install --dry-run=server . --generate-name --debug > helm-crds/yamls.yaml` to generate the CRDs if you would like to check the output before applying it.
+4. Run `helm upgrade --reuse-values <chart-name> .` to install the CRDs.
+> NOTE: Use the .helmignore file to exclude certain sections of the demo that you don't want to install.

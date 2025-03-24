@@ -1,0 +1,11 @@
+apiVersion: cluster.open-cluster-management.io/v1
+kind: ManagedCluster
+metadata:
+  name: interesting-lofi-potato
+  labels:
+    cloud: Amazon
+    vendor: Amazon
+    name: interesting-lofi-potato
+    env: stage
+spec:
+  hubAcceptsClient: true

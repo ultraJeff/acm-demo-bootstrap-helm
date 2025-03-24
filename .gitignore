@@ -2,3 +2,4 @@
 helm-crds
 eks_mine
 import-manifests
+templates/1-cluster-lifecycle/hcp

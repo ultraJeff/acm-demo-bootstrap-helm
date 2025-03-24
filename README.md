@@ -32,6 +32,8 @@ CLUSTER_NAMESPACE
 * [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/)
 * [aws](https://aws.amazon.com/cli/)
 
+> TIP: Use the .helmignore file to exclude certain sections of the demo that you don't want to install.
+
 
 1. Run `./update-values.sh` first to set all of the template variables.
 > NOTE: **Do not commit your updates to `values.yaml`!** Reset it with `git checkout values.yaml` before committing anything to your own fork.
@@ -39,13 +41,30 @@ CLUSTER_NAMESPACE
 2. Run `./s3-bucket-setup.sh` next to create the S3 bucket for Observability (this also sources `.env` that will be used by various shell scripts)
 3. Run `./eks-setup.sh` next to create the EKS cluster
 > NOTE: Use the provided `./kube-context-switch.sh` to switch your kubectl context between the new EKS cluster and the default OpenShift cluster
+4. Run `helm upgrade --reuse-values <chart-name> ./templates/00-aws-creds` to install some bootstrapping and then patch the ACM instance with `oc patch multiclusterhub multiclusterhub -n open-cluster-management --type merge -p '{"spec":{"imagePullSecret":"eks-secret"}}'`
 
 ## Cluster Lifecycle
 
+> NOTE: EKS might spin up a mix of amd64 and arm64 instances. If you are unable to import your cluster to ACM completely (e.g. not all addons are working, this is likely why!)
+
+Fix might be patching `deployment/cert-policy-controller` in `open-cluster-management-agent` namespace like so (this won't stick, so please find a more permanent solution)
+
+```yaml
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/arch
+          operator: NotIn
+          values:
+          - arm64
+```
+
 > NOTE: For `1-cluster-lifecycle`, most names are managed through values.yaml file. If you are installing a SNO cluster, then you won't need to change anything, but if you are installing a different type of cluster, you will need to create a new install config secret file similar to `single-node-cluster-install-config.yaml` and reference that name in values.yaml instead.
+
 3. Run `helm install --dry-run=server . --generate-name --debug > helm-crds/yamls.yaml` to generate the CRDs if you would like to check the output before applying it.
 4. Run `helm upgrade --reuse-values <chart-name> .` to install the CRDs.
-> NOTE: Use the .helmignore file to exclude certain sections of the demo that you don't want to install.
 
 ## Application Lifecycle
 

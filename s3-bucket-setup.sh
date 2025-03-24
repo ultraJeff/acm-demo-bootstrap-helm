@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# TODO: Consider breaking this into aws configure and bucket steps
+
 # Exit on error
 set -e
 

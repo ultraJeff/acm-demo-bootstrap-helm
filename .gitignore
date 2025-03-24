@@ -1,2 +1,4 @@
 .env
 helm-crds
+eks_mine
+import-manifests

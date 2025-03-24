@@ -29,6 +29,12 @@ cluster:
   image: 
     name: img4.18.4-multi-appsub #quay.io/openshift-release-dev/ocp-release:4.18.4-multi
 
+# EKS Configuration
+# These values are used for importing an existing EKS cluster into ACM
+eks:
+  name: "eks-single-node-cluster"
+  namespace: "eks-single-node-cluster"
+
 # Network Configuration
 network:
   clusterNetwork:
